@@ -38,7 +38,7 @@ class ValidateException(Exception):
 def validate(invoice_part):
 
     taglist = {}
-    for k, v in invoice_part.__class__.__dict__.items():
+    for k, v in list(invoice_part.__class__.__dict__.items()):
         if isinstance(v, FieldType):
             value = invoice_part.__getattribute__(k)
             if value:
@@ -49,7 +49,7 @@ def validate(invoice_part):
                                'conflict': v.conflict, 'required': v.required}
 
     # Risolve Dipendenze e Conflitti
-    for v in taglist.values():
+    for v in list(taglist.values()):
         if v['value'] is not None and v['depend'] is not None:
             for d in v['depend']:
                 if taglist[d]['value'] is None:
@@ -98,7 +98,7 @@ def globalvalidation(fattura):
                     raise ValidateException('Denominazione Azienda Mancante')
         for feb in fattura.FatturaElettronicaBody:
             if feb.DatiGenerali.DatiGeneraliDocumento.Data > datetime.date.today():
-                print feb.DatiGenerali.DatiGeneraliDocumento.Data, '- TODAY -', datetime.date.today()
+                print(feb.DatiGenerali.DatiGeneraliDocumento.Data, '- TODAY -', datetime.date.today())
                 raise ValidateException('00403 - Data Fattura non puo essere nel futuro')
             for ln in feb.DatiBeniServizi.DettaglioLinee:
                 if ln.Ritenuta and not feb.DatiGenerali.DatiGeneraliDocumento.DatiRitenuta:

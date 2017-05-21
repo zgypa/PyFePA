@@ -29,11 +29,11 @@ class FieldType(object):
     multi = False
 
     def __init__(self, **kwargs):
-        self.required = kwargs['required'] if kwargs.has_key('required') else False
-        self.depend = kwargs['depend'] if kwargs.has_key('depend') else None
-        self.conflict = kwargs['conflict'] if kwargs.has_key('conflict') else None
-        self.code = kwargs['code'] if kwargs.has_key('code') else None
-        self.multi = kwargs['multi'] if kwargs.has_key('multi') else False
+        self.required = kwargs['required'] if 'required' in kwargs else False
+        self.depend = kwargs['depend'] if 'depend' in kwargs else None
+        self.conflict = kwargs['conflict'] if 'conflict' in kwargs else None
+        self.code = kwargs['code'] if 'code' in kwargs else None
+        self.multi = kwargs['multi'] if 'multi' in kwargs else False
 
     def validate(self, value):
         retval = False
@@ -56,27 +56,27 @@ class FieldString(FieldType):
         elif not (self.minlen and self.maxlen ):
             valid = True
         elif self.minlen and not self.maxlen :
-            valid = self.minlen <= len(unicode(value))
+            valid = self.minlen <= len(str(value))
         elif self.maxlen and not self.minlen:
-            valid = len(unicode(value)) <= self.maxlen
+            valid = len(str(value)) <= self.maxlen
         else:
-            valid = self.minlen <= len(unicode(value)) <= self.maxlen
+            valid = self.minlen <= len(str(value)) <= self.maxlen
 
         if valid:
-            return value if isinstance(value,(str,unicode)) else unicode(value)
+            return value if isinstance(value,str) else str(value)
         else:
             return valid
 
     def __init__(self, **kwargs):
 
-        self.minlen = kwargs['minlen'] if kwargs.has_key('minlen') else False
-        self.maxlen = kwargs['maxlen'] if kwargs.has_key('maxlen') else False
+        self.minlen = kwargs['minlen'] if 'minlen' in kwargs else False
+        self.maxlen = kwargs['maxlen'] if 'maxlen' in kwargs else False
 
         super(FieldString,self).__init__(**kwargs)
 
     @classmethod
     def tostring(cls,value):
-        return unicode(value)
+        return str(value)
 
 
 class FieldCostant(FieldType):
@@ -87,20 +87,20 @@ class FieldCostant(FieldType):
     def validate(self, value):
         if super(FieldCostant,self).validate(value):
             return value
-        elif unicode(value) in self.cvalue:
+        elif str(value) in self.cvalue:
             return value
         else:
             return False
 
     def __init__(self, **kwargs):
 
-        self.cvalue = kwargs['cvalue'] if kwargs.has_key('cvalue') else None
+        self.cvalue = kwargs['cvalue'] if 'cvalue' in kwargs else None
 
         super(FieldCostant,self).__init__(**kwargs)
 
     @classmethod
     def tostring(cls,value):
-        return unicode(value)
+        return str(value)
 
 
 class FieldInteger(FieldType):
@@ -120,8 +120,8 @@ class FieldInteger(FieldType):
 
     def __init__(self, **kwargs):
 
-        self.minlen = kwargs['minlen'] if kwargs.has_key('minlen') else None
-        self.maxlen = kwargs['maxlen'] if kwargs.has_key('maxlen') else None
+        self.minlen = kwargs['minlen'] if 'minlen' in kwargs else None
+        self.maxlen = kwargs['maxlen'] if 'maxlen' in kwargs else None
 
         super(FieldInteger,self).__init__(**kwargs)
 
@@ -143,13 +143,13 @@ class FieldDecimal(FieldType):
             elif self.minlen <= len('{:.2f}'.format(float(value))) <= self.maxlen:
                 return float(value)
         except(ValueError, TypeError):
-            print 'DEBUG- ', value
+            print('DEBUG- ', value)
             return False
 
     def __init__(self, **kwargs):
 
-        self.minlen = kwargs['minlen'] if kwargs.has_key('minlen') else None
-        self.maxlen = kwargs['maxlen'] if kwargs.has_key('maxlen') else None
+        self.minlen = kwargs['minlen'] if 'minlen' in kwargs else None
+        self.maxlen = kwargs['maxlen'] if 'maxlen' in kwargs else None
 
         super(FieldDecimal,self).__init__(**kwargs)
 
@@ -209,7 +209,7 @@ class FieldObject(FieldType):
 
     def __init__(self, **kwargs):
 
-        self.object_class = kwargs['object_class'] if kwargs.has_key('object_class') else False
+        self.object_class = kwargs['object_class'] if 'object_class' in kwargs else False
         super(FieldObject,self).__init__(**kwargs)
 
     @classmethod

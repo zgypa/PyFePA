@@ -15,7 +15,7 @@
 #
 ###################################################################################################################
 
-from fields import *
+from .fields import *
 import sys
 
 
@@ -24,14 +24,14 @@ RF = ('RF01', 'RF02', 'RF03', 'RF04', 'RF05', 'RF06', 'RF07', 'RF08', 'RF09', 'R
       'RF11', 'RF12', 'RF13', 'RF14', 'RF15', 'RF16', 'RF17', 'RF18', 'RF19')
 SU = ('SU', 'SM')
 SL = ('LS', 'LN')
-TD = map(lambda td: 'TD{:0=2d}'.format(td), range(1, 6))
+TD = ['TD{:0=2d}'.format(td) for td in range(1, 6)]
 TR = ['RT01','RT01']
-TC = map(lambda tc: 'TC{:0=2d}'.format(tc), range(1,22))
-NT = map(lambda nt: 'NT{:0=2d}'.format(nt), range(1,7))
+TC = ['TC{:0=2d}'.format(tc) for tc in range(1,22)]
+NT = ['NT{:0=2d}'.format(nt) for nt in range(1,7)]
 TCP = ('SC', 'PR', 'AB', 'AC')
 SM = ('SC', 'MG')
 TP = ('TP01', 'TP02', 'TP03')
-MP = map(lambda mp: 'MP{:0=2d}'.format(mp), range(1,22))
+MP = ['MP{:0=2d}'.format(mp) for mp in range(1,22)]
 EI = ('I','D','S')
 
 
@@ -63,7 +63,7 @@ class GenFePA(object):
 
     def from_element(self, element):
 
-        for k, v in self.__class__.__dict__.items():
+        for k, v in list(self.__class__.__dict__.items()):
             if isinstance(v,FieldType):
                 tagg = [t for t in list(element) if str.lower(t.tag) == str.lower(k)]
                 if len(tagg) == 1 or (v.multi and len(tagg) > 1):

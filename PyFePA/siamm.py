@@ -17,7 +17,7 @@
 
 
 import datetime
-from utils import piva
+from .utils import piva
 
 lxml = False
 
@@ -120,7 +120,7 @@ def _siam_serialize(value):
 
     intercettazioni = etree.Element('INTERCETTAZIONI')
     (etree.SubElement(intercettazioni, 'ID')).text = str(value['id']).upper() if 'id' in value else '1'
-    (etree.SubElement(intercettazioni, 'BENEFICIARIO')).text = unicode(value['beneficiario'])
+    (etree.SubElement(intercettazioni, 'BENEFICIARIO')).text = str(value['beneficiario'])
     (etree.SubElement(intercettazioni, 'TIPOPAGAMENTO')).text = value['tipopagamento'].upper()
     (etree.SubElement(intercettazioni, 'ENTEPAGANTE')).text = value['entepagante'].upper()
     (etree.SubElement(intercettazioni, 'DATAINIZIOPRESTAZIONE')).text = \
@@ -141,8 +141,8 @@ def _siam_serialize(value):
         (etree.SubElement(intercettazioni, 'NUMEROMODELLO37')).text = \
             fillprot(value['numeromodello37']) if 'numeromodello37' in value else None
     (etree.SubElement(intercettazioni, 'TIPOINTERCETTAZIONE')).text = value['tipointercettazione'].upper()
-    (etree.SubElement(intercettazioni, 'NOMEMAGISTRATO')).text = unicode(value['nomemagistrato']).upper()
-    (etree.SubElement(intercettazioni, 'COGNOMEMAGISTRATO')).text = unicode(value['cognomemagistrato']).upper()
+    (etree.SubElement(intercettazioni, 'NOMEMAGISTRATO')).text = str(value['nomemagistrato']).upper()
+    (etree.SubElement(intercettazioni, 'COGNOMEMAGISTRATO')).text = str(value['cognomemagistrato']).upper()
     (etree.SubElement(intercettazioni, 'DATAEMISSIONEPROVV')).text = \
         "{:%Y-%m-%dT%H:%M:%S}".format(value['dataemissioneprovv']) if 'dataemissioneprovv' in value \
                                                                       and value['dataemissioneprovv'] != '' else ''

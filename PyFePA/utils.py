@@ -25,9 +25,9 @@ def piva(value):
     if (len(value) != 11) or not value.isdigit():
         return False
 
-    value = map(int, value)
-    checksum = sum(map(lambda x: value[x], xrange(0, 10, 2)))
-    checksum += sum(map(lambda x: (2 * value[x]) - 9 if (2 * value[x]) > 9 else (2 * value[x]) , xrange(1, 10, 2)))
+    value = list(map(int, value))
+    checksum = sum([value[x] for x in range(0, 10, 2)])
+    checksum += sum([(2 * value[x]) - 9 if (2 * value[x]) > 9 else (2 * value[x]) for x in range(1, 10, 2)])
     checksum = 10 - (checksum % 10) if checksum % 10 != 0 else 0
 
     return value[10] == checksum

@@ -15,8 +15,8 @@
 #
 ###################################################################################################################
 
-from fields import *
-from fepa import GenFePA
+from .fields import *
+from .fepa import GenFePA
 
 lxml = False
 
@@ -134,4 +134,4 @@ test = NotificaScarto()
 test.DataOraRicezione = '2015-01-01'
 test.IdentificativoSdI = '12334'
 
-print test
+print(test)
