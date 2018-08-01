@@ -33,4 +33,5 @@ setup(
   package_data = {'PyFePA' : files },
   license= 'AGPLv3',
   classifiers = [],
+  install_requires=['python-dateutil'],
 )

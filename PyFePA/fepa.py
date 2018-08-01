@@ -27,7 +27,7 @@ SL = ('LS', 'LN')
 TD = ['TD{:0=2d}'.format(td) for td in range(1, 6)]
 TR = ['RT01','RT01']
 TC = ['TC{:0=2d}'.format(tc) for tc in range(1,22)]
-NT = ['NT{:0=2d}'.format(nt) for nt in range(1,7)]
+NT = ['N{:0=1d}'.format(nt) for nt in range(1,8)]
 TCP = ('SC', 'PR', 'AB', 'AC')
 SM = ('SC', 'MG')
 TP = ('TP01', 'TP02', 'TP03')

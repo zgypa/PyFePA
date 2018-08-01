@@ -18,6 +18,7 @@
 import datetime
 import importlib
 import dateutil.parser
+from decimal import Decimal
 
 
 class FieldType(object):
@@ -141,7 +142,7 @@ class FieldDecimal(FieldType):
             if super(FieldDecimal,self).validate(value):
                 return value
             elif self.minlen <= len('{:.2f}'.format(float(value))) <= self.maxlen:
-                return float(value)
+                return Decimal(value).quantize(Decimal('.01'))
         except(ValueError, TypeError):
             print('DEBUG- ', value)
             return False
@@ -155,7 +156,7 @@ class FieldDecimal(FieldType):
 
     @classmethod
     def tostring(cls,value):
-        return '{:.2f}'.format(float(value))
+        return unicode(Decimal(value).quantize(Decimal('.01')))
 
 
 class FieldDate(FieldType):
