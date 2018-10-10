@@ -22,7 +22,7 @@ files = ["xsd/*.xsd"]
 setup(
   name = 'PyFePA',
   packages = ['PyFePA'],
-  version = '1.2.1b',
+  version = '1.2.2b',
   description = 'Python object of italian FatturaPA, serialize, deserialize and verify',
   author = 'Luigi Di Naro',
   author_email = 'Luigi.DiNaro@ktec.it',

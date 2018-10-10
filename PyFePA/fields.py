@@ -57,14 +57,14 @@ class FieldString(FieldType):
         elif not (self.minlen and self.maxlen ):
             valid = True
         elif self.minlen and not self.maxlen :
-            valid = self.minlen <= len(str(value))
+            valid = self.minlen <= len(unicode(value))
         elif self.maxlen and not self.minlen:
-            valid = len(str(value)) <= self.maxlen
+            valid = len(unicode(value)) <= self.maxlen
         else:
-            valid = self.minlen <= len(str(value)) <= self.maxlen
+            valid = self.minlen <= len(unicode(value)) <= self.maxlen
 
         if valid:
-            return value if isinstance(value,str) else str(value)
+            return value if isinstance(value,unicode) else unicode(value)
         else:
             return valid
 
@@ -77,7 +77,7 @@ class FieldString(FieldType):
 
     @classmethod
     def tostring(cls,value):
-        return str(value)
+        return unicode(value)
 
 
 class FieldCostant(FieldType):
