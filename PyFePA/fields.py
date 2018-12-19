@@ -57,14 +57,15 @@ class FieldString(FieldType):
         elif not (self.minlen and self.maxlen ):
             valid = True
         elif self.minlen and not self.maxlen :
-            valid = self.minlen <= len(unicode(value))
+            valid = self.minlen <= len(value)
         elif self.maxlen and not self.minlen:
-            valid = len(unicode(value)) <= self.maxlen
+            valid = len(value) <= self.maxlen
         else:
-            valid = self.minlen <= len(unicode(value)) <= self.maxlen
+            valid = self.minlen <= len(value) <= self.maxlen
+                
 
         if valid:
-            return value if isinstance(value,unicode) else unicode(value)
+            return value if isinstance(value,unicode) else value.decode('utf8')
         else:
             return valid
 
