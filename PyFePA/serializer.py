@@ -57,11 +57,11 @@ def validate(invoice_part):
         elif v['value'] is not None and v['conflict'] is not None:
             for d in v['conflict']:
                 if taglist[d]['value'] is not None:
-                    raise ValidateException('{0} Conflict with {1}'.format(v['tag'],v['conflict']))
+                    raise ValidateException('Cannot specify both {0} and {1} at the same time'.format(v['tag'],v['conflict']))
         elif v['value'] is None and v['conflict'] is not None and v['required']:
             for d in v['conflict']:
                 if taglist[d]['value'] is None:
-                    raise ValidateException('{0} or {1} must be specified'.format(v['tag'],v['conflict']))
+                    raise ValidateException('Must specify either {0} or {1} but not both at the same time'.format(v['tag'],v['conflict']))
 
     return taglist
 
