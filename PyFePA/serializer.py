@@ -98,7 +98,7 @@ def globalvalidation(fattura):
                     raise ValidateException('Denominazione Azienda Mancante')
         for feb in fattura.FatturaElettronicaBody:
             if feb.DatiGenerali.DatiGeneraliDocumento.Data > datetime.date.today():
-                print(feb.DatiGenerali.DatiGeneraliDocumento.Data, '- TODAY -', datetime.date.today())
+                print((feb.DatiGenerali.DatiGeneraliDocumento.Data, '- TODAY -', datetime.date.today()))
                 raise ValidateException('00403 - Data Fattura non puo essere nel futuro')
             for ln in feb.DatiBeniServizi.DettaglioLinee:
                 if ln.Ritenuta and not feb.DatiGenerali.DatiGeneraliDocumento.DatiRitenuta:
@@ -146,8 +146,8 @@ def serializexml(invoice_part,tagname):
                 for t in taglist[k]['value']:
                     fe.append(serializexml(t, taglist[k]['tag']))
         elif taglist[k]['type'] == 'S' and taglist[k]['value'] is not None:
-            if type(taglist[k]['value']) != unicode:
-                taglist[k]['value'] = unicode(taglist[k]['value'])
+            if type(taglist[k]['value']) != str:
+                taglist[k]['value'] = str(taglist[k]['value'])
             (ElementTree.SubElement(fe, taglist[k]['tag'])).text = taglist[k]['value']
         elif taglist[k]['type'] == 'O' and taglist[k]['value'] is not None:
             fe.append(serializexml(taglist[k]['value'],taglist[k]['tag']))

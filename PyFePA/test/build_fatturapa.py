@@ -221,4 +221,4 @@ class FatturaPA(object):
 if __name__ == "__main__":
     fatturapa = FatturaPA()
     fpa = fatturapa.get_fatturapa()
-    print(serializer(fpa,'xml'))
+    print((serializer(fpa,'xml')))

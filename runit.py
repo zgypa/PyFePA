@@ -34,7 +34,7 @@ testdata = {'beneficiario': 'IT04578140875',
 with open(DPATH+'/PyFePA/test/IT01234567890_11001.xml', 'rt') as f:
     tree = ElementTree.parse(f)
     fe = serializer.deserialize(element=tree)
-    print(serializer.serializer(fe,'xml'))
+    print((serializer.serializer(fe,'xml')))
 
 testdata_list = [testdata,testdata,testdata]
-print(siamm.serialize(testdata_list))
+print((siamm.serialize(testdata_list)))

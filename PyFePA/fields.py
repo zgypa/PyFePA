@@ -65,7 +65,7 @@ class FieldString(FieldType):
                 
 
         if valid:
-            return value if isinstance(value,unicode) else value.decode('utf8')
+            return value if isinstance(value,str) else value.decode('utf8')
         else:
             return valid
 
@@ -78,7 +78,7 @@ class FieldString(FieldType):
 
     @classmethod
     def tostring(cls,value):
-        return unicode(value)
+        return str(value)
 
 
 class FieldCostant(FieldType):
@@ -145,7 +145,7 @@ class FieldDecimal(FieldType):
             elif self.minlen <= len('{:.2f}'.format(float(value))) <= self.maxlen:
                 return Decimal(value).quantize(Decimal('.01'))
         except(ValueError, TypeError):
-            print('DEBUG- ', value)
+            print(('DEBUG- ', value))
             return False
 
     def __init__(self, **kwargs):
@@ -157,7 +157,7 @@ class FieldDecimal(FieldType):
 
     @classmethod
     def tostring(cls,value):
-        return unicode(Decimal(value).quantize(Decimal('.01')))
+        return str(Decimal(value).quantize(Decimal('.01')))
 
 
 class FieldDate(FieldType):
